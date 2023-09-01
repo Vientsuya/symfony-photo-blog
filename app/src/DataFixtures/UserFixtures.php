@@ -15,6 +15,8 @@ class UserFixtures extends AbstractBaseFixtures
             $user->setRoles(['user']);
             
             $this->manager->persist($user);
+
+            $this->addReference('user_' . $i, $user);
         }
         $this->manager->flush();
     }
