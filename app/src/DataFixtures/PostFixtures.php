@@ -23,7 +23,8 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
         $postMedia = new PostMedia();
 
         $post->setCaption($this->faker->catchPhrase());
-        $post->setCreatedAt(new \DateTimeImmutable());
+        $post->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-2 years', '-100 days')));
+        $post->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
         
         $userReference = $this->getReference('user_' . random_int(0, 7));
         $post->setCreatedBy($userReference);
@@ -33,6 +34,8 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
 
         $postMedia->setImageUrl($this->faker->imageUrl());
         $post->setPostMedia($postMedia);
+
+        $this->addReference('post_' . $i, $post);
 
         $this->manager->persist($postMedia);
         $this->manager->persist($post);
