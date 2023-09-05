@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} categories {% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for row_items in categories|batch(3) %}
+			<div class="row mb-4">
+				{% for item in row_items %}
+				<div class="col-lg-4 col-md-12">
+					<a href="{{ '/category/' ~ item.title|lower }}">
+						<div class="card bg-dark text-white">
+							<div class="ratio ratio-4x3"> <!-- Adjust the aspect ratio here -->
+								<img src="{{ item.imgUrl }}" class="card-img" alt="{{ 'image of ' ~ item.title }}" />
+							</div>
+							<div class="card-img-overlay">
+								<h5 class="card-title text-center">{{ item.title }}</h5>
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+
+		<div class="row">
+		
+		</div>
+	</div>
+{% endblock %}

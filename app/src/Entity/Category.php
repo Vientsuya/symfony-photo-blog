@@ -31,6 +31,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
     private Collection $posts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $img_url = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -115,6 +118,18 @@ class Category
                 $post->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImgUrl(): ?string
+    {
+        return $this->img_url;
+    }
+
+    public function setImgUrl(string $img_url): static
+    {
+        $this->img_url = $img_url;
 
         return $this;
     }

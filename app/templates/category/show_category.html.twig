@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ categoryName|capitalize }} {% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for posts_row in posts|batch(3) %}
+			<div class="row mb-4">
+				{% for post in posts_row %}
+				<div class="col-lg-4 col-md-12">
+					<div class="card bg-dark text-white">
+						<div class="ratio ratio-4x3"> <!-- Adjust the aspect ratio here -->
+							<img src="{{ post.postMedia.imageUrl }}" class="card-img" alt="{{ 'image of ' ~ post.caption }}" />
+						</div>
+						<div class="card-img-overlay">
+							<h5 class="card-title text-center">{{ post.caption }}</h5>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+
+		<div class="row">
+		
+		</div>
+	</div>
+{% endblock %}
