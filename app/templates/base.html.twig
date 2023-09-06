@@ -18,8 +18,8 @@
 				<div class="container">
 					<div class="d-flex flex-wrap align-items-center justify-content-between">
 						<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-							<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-								<use xlink:href="#bootstrap"></use>
+							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-binoculars" viewBox="0 0 16 16">
+								<path d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
 							</svg>
 						</a>
 
@@ -37,11 +37,16 @@
 							</div>
 						{% else %}
 							{# Display user profile picture, email, and dropdown when the user is logged in #}
-							<span class="dropdown-item-text mr-3">{{ app.user.email }}</span>
+							<div class="m-2">
+								<span class="dropdown-item-text">{{ app.user.email }}</span>
+							</div>
 							<div class="dropdown text-end">
 								<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
 								id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-									<img src="https://github.com/mdo.png" alt="user" width="32" height="32">
+								<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+									<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+									<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+								</svg>
 								</a>
 
 								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
