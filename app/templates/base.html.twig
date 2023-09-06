@@ -14,46 +14,52 @@
 	</head>
 	<body>
 		{% block header %}
-				<header class="p-3 mb-3 border-bottom">
-					<div class="container">
-						<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-							<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-								<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-									<use xlink:href="#bootstrap"></use>
-								</svg>
-        			</a>
+			<header class="p-3 mb-3 border-bottom">
+				<div class="container">
+					<div class="d-flex flex-wrap align-items-center justify-content-between">
+						<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+							<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+								<use xlink:href="#bootstrap"></use>
+							</svg>
+						</a>
 
-							<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-								<li><a href="/category" class="nav-link px-2 link-dark">Categories</a></li>
-								<li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
-								<li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
-        			</ul>
+						<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+							<li><a href="/category" class="nav-link px-2 link-dark">Categories</a></li>
+							<li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
+							<li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
+						</ul>
 
+						{% if not app.user %}
+							{# Display "Register" and "Login" buttons if the user is not logged in #}
+							<div>
+								<a href="{{ path('app_register') }}" class="btn btn-outline-primary me-2">Register</a>
+								<a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
+							</div>
+						{% else %}
+							{# Display user profile picture, email, and dropdown when the user is logged in #}
+							<span class="dropdown-item-text mr-3">{{ app.user.email }}</span>
 							<div class="dropdown text-end">
-								<a 
-								href="#" 
-								class="d-block link-dark text-decoration-none dropdown-toggle"
-								id="dropdownUser1" 
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-								>
-									<img src="https://github.com/mdo.png" alt="user" width="32" height="32">	
+								<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+								id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+									<img src="https://github.com/mdo.png" alt="user" width="32" height="32">
 								</a>
 
 								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 									<li>
-										<a href="#" class="dropdown-item">Profile</a>	
-										<a href="#" class="dropdown-item">Settings</a>	
+										<a href="#" class="dropdown-item">Profile</a>
+										<a href="#" class="dropdown-item">Settings</a>
 										<a href="#" class="dropdown-item">My images</a>
-										<hr class="dropdown-divider">	
-										<a href="#" class="dropdown-item">Sign out</a>
-									</li>	
+										<hr class="dropdown-divider">
+										<a href="/logout" class="dropdown-item">Sign out</a>
+									</li>
 								</ul>
 							</div>
-						</div>	
-					</div>	
-				</header>
-			{% endblock %}
+						{% endif %}
+					</div>
+				</div>
+			</header>
+		{% endblock %}
+
 
 		<main role="main" class="container-fluid">	
 			{% block body %}
