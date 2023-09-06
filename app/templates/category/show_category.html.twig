@@ -21,22 +21,32 @@
 
 				<!-- Modal -->
 				<div class="modal fade" id="postModal{{ post.id }}" tabindex="-1" aria-labelledby="postModalLabel{{ post.id }}" aria-hidden="true">
-					<div class="modal-dialog">
+					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="postModalLabel{{ post.id }}">{{ post.caption }}</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
-								...
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Save changes</button>
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-lg-7">
+											<img src="{{ post.postMedia.imageUrl }}" class="img-fluid" alt="{{ 'image of ' ~ post.caption }}" />
+										</div>
+										<div class="col-lg-5">
+											<div class="mb-3">
+												<h5 class="modal-title" id="postModalLabel{{ post.id }}">{{ post.caption }}</h5>
+												<p>{{ post.caption }}</p>
+											</div>
+											<div class="comments">
+												
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 
 				{% endfor %}
 			</div>
