@@ -5,10 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Post;
 use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 class CategoryController extends AbstractController
 {
@@ -23,7 +25,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/category/{category}', name: 'category')]
-    public function showCategoryAction($category, EntityManagerInterface $em): Response
+    public function showCategoryAction(Request $request, $category, EntityManagerInterface $em, PaginatorInterface $paginator): Response
     {
         // Translate category name to id
         $categoryEntity = $em
@@ -46,13 +48,15 @@ class CategoryController extends AbstractController
         ->getQuery()
         ->getResult();
 
+        $pagination = $paginator->paginate($postsWithMedia, $request->query->getInt('page', 1), 12);
+
         if (!$postsWithMedia) {
             throw $this->createNotFoundException('Posts not found');
         }
 
         return $this->render('category/show_category.html.twig', [
             'categoryName' => $category,
-            'posts' => $postsWithMedia
+            'pagination' => $pagination
         ]);
     }
 }

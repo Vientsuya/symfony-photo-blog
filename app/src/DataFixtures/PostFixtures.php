@@ -18,7 +18,7 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
 
     public function loadData(): void
     {
-       for ($i = 0; $i < 25; $i++) {
+       for ($i = 0; $i < 200; $i++) {
         $post = new Post();
         $postMedia = new PostMedia();
 
@@ -26,7 +26,7 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
         $post->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-2 years', '-100 days')));
         $post->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
         
-        $userReference = $this->getReference('user_' . random_int(0, 7));
+        $userReference = $this->getReference('user_' . random_int(0, 14));
         $post->setCreatedBy($userReference);
 
         $categoryReference = $this->getReference('category_' . random_int(0, 4));

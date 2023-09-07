@@ -3,53 +3,58 @@
 {% block title %} {{ categoryName|capitalize }} {% endblock %}
 
 {% block body %}
-	<div class="container">
+    <div class="container">
+        {% for posts_row in pagination|batch(3) %}
+            <div class="row mb-4">
+                {% for post in posts_row %}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card bg-dark text-white" data-bs-toggle="modal" data-bs-target="#postModal{{ post.id }}">
+                            <div class="ratio ratio-4x3"> <!-- Adjust the aspect ratio here -->
+                                <img src="{{ post.postMedia.imageUrl }}" class="card-img" alt="{{ 'image of ' ~ post.caption }}" />
+                            </div>
+                            <div class="card-img-overlay">
+                                <h5 class="card-title text-center">{{ post.caption }}</h5>
+                            </div>
+                        </div>
+                    </div>
 
-		{% for posts_row in posts|batch(3) %}
-			<div class="row mb-4">
-				{% for post in posts_row %}
-				<div class="col-lg-4 col-md-12">
-					<div class="card bg-dark text-white" data-bs-toggle="modal" data-bs-target="#postModal{{ post.id }}">
-						<div class="ratio ratio-4x3"> <!-- Adjust the aspect ratio here -->
-							<img src="{{ post.postMedia.imageUrl }}" class="card-img" alt="{{ 'image of ' ~ post.caption }}" />
-						</div>
-						<div class="card-img-overlay">
-							<h5 class="card-title text-center">{{ post.caption }}</h5>
-						</div>
-					</div>
-				</div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="postModal{{ post.id }}" tabindex="-1" aria-labelledby="postModalLabel{{ post.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <img src="{{ post.postMedia.imageUrl }}" class="img-fluid" alt="{{ 'image of ' ~ post.caption }}" />
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="mb-3">
+                                                    <h5 class="modal-title" id="postModalLabel{{ post.id }}">{{ post.caption }}</h5>
+                                                    <p>{{ post.caption }}</p>
+                                                </div>
+                                                <div class="comments">
 
-				<!-- Modal -->
-				<div class="modal fade" id="postModal{{ post.id }}" tabindex="-1" aria-labelledby="postModalLabel{{ post.id }}" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-lg-7">
-											<img src="{{ post.postMedia.imageUrl }}" class="img-fluid" alt="{{ 'image of ' ~ post.caption }}" />
-										</div>
-										<div class="col-lg-5">
-											<div class="mb-3">
-												<h5 class="modal-title" id="postModalLabel{{ post.id }}">{{ post.caption }}</h5>
-												<p>{{ post.caption }}</p>
-											</div>
-											<div class="comments">
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
 
-				{% endfor %}
-			</div>
-		{% endfor %}
-	</div>
+        {# Display pagination controls #}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {{ knp_pagination_render(pagination) }}
+            </ul>
+        </nav>
+    </div>
 {% endblock %}

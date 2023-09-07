@@ -17,15 +17,15 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
 
     public function loadData(): void
     {
-        for ($i = 0; $i < 200; ++$i) {
+        for ($i = 0; $i < 1000; ++$i) {
             $comment = new Comment();
             $comment->setCommentContent($this->faker->sentence());
             $comment->setCreatedAt(\DatetimeImmutable::createFromMutable($this->faker->dateTimeBetween('-2 years')));
 
-            $userReference = $this->getReference('user_' . random_int(0, 7));
+            $userReference = $this->getReference('user_' . random_int(0, 14));
             $comment->setCreatedBy($userReference);
 
-            $postReference = $this->getReference('post_' . random_int(0, 24));
+            $postReference = $this->getReference('post_' . random_int(0, 199));
             $comment->setPost($postReference);
             
             $this->manager->persist($comment);

@@ -8,7 +8,7 @@ class UserFixtures extends AbstractBaseFixtures
 {    
     public function loadData(): void
     {
-        for ($i = 0; $i < 8; ++$i) {
+        for ($i = 0; $i < 15; ++$i) {
             $user = new User();
             $user->setEmail($this->faker->email());
             $user->setPassword($this->faker->password());
