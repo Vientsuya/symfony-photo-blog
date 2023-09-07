@@ -13,7 +13,7 @@
                                 <img src="{{ post.postMedia.imageUrl }}" class="card-img" alt="{{ 'image of ' ~ post.caption }}" />
                             </div>
                             <div class="card-img-overlay">
-                                <h5 class="card-title text-center">{{ post.caption }}</h5>
+                                <h5 class="card-title text-center">{{ post.createdAt|date('H:i:s d-m-Y' ) }}</h5>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                                     <p>{{ post.caption }}</p>
                                                 </div>
                                                 <div class="comments">
-
+													<!-- TODO -->
                                                 </div>
                                             </div>
                                         </div>

@@ -38,13 +38,14 @@ class CategoryController extends AbstractController
 
         $categoryId = $categoryEntity->getId();
 
-        // Get posts with their postMedias only from the category
+        // Get posts with their postMedias only from the specific category
         $postsWithMedia = $em
         ->getRepository(Post::class)
         ->createQueryBuilder('p')
         ->leftJoin('p.postMedia', 'pm')
         ->where('p.category = :category')
         ->setParameter('category', $categoryId)
+        ->orderBy('p.created_at', 'DESC')
         ->getQuery()
         ->getResult();
 
