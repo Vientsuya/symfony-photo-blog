@@ -49,6 +49,27 @@
                                             </div>
                                             {% endfor %}
                                         </div>
+
+                                        <!-- Add a comment input form for logged-in users -->
+                                       <div class="col-md-6">
+                                            {% set form = commentForm.createView() %}
+                                            {{ form_start(form) }}
+
+                                            <div class="mb-3">
+                                                {{ form_label(form.commentContent, 'Your Comment', {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_widget(form.commentContent, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
+
+                                            {# Render a hidden field for 'post' and set its value based on the current post in the loop #}
+                                            {{ form_widget(form.post, {'attr': {'type': 'hidden'}}) }}
+                                            <input type="hidden" name="{{ form.post.vars.full_name }}" value="{{ post.id }}" />
+
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+
+                                            {{ form_end(form) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

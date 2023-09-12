@@ -11,6 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Comment;
+use App\Form\Type\CommentType;
+use Symfony\Component\Security\Core\Security;
 
 class CategoryController extends AbstractController
 {
@@ -25,7 +28,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/category/{category}', name: 'category')]
-    public function showCategoryAction(Request $request, $category, EntityManagerInterface $em, PaginatorInterface $paginator): Response
+    public function showCategoryAction(Request $request, $category, EntityManagerInterface $em, PaginatorInterface $paginator, Security $security): Response
     {
         // Translate category name to id
         $categoryEntity = $em
@@ -53,6 +56,26 @@ class CategoryController extends AbstractController
 
         $pagination = $paginator->paginate($postsWithMediaAndComments, $request->query->getInt('page', 1), 12);
 
+        // Handle a comment form
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(\DateTimeImmutable::createFromMutable(new \DateTime()));
+            
+            // Set the 'post' field of the comment entity based on the hidden field value
+            $postId = $request->request->get('comment')['post'];
+            $post = $em->getRepository(Post::class)->find($postId);
+            $comment->setPost($post);
+
+            $comment->setCreatedBy($security->getUser());
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('category', ['category' => $category]);
+        }
+
         if (!$postsWithMediaAndComments) {
             throw $this->createNotFoundException('Posts not found');
         }
@@ -60,6 +83,7 @@ class CategoryController extends AbstractController
         return $this->render('category/show_category.html.twig', [
             'categoryName' => $category,
             'pagination' => $pagination,
+            'commentForm' => $form,
         ]);
     }
 }
